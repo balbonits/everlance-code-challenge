@@ -1,0 +1,13 @@
+@import './tailwind.css';
+
+.app {
+    width: 100vw;
+}
+
+.app-header {
+    height: 75px;
+}
+
+.app-header-logo > img {
+    height: 100%;
+}

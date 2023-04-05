@@ -1,0 +1,42 @@
+@import '../tailwind.css';
+
+.user-results-items {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.user-results-item-head {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.user-results-item-head-thumb {
+  height: 3rem;
+  width: 3rem;
+}
+
+.user-results-item-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.user-results-item-link-github {
+  display: flex;
+  align-items: center;
+}
+
+.user-results-item-link-github > img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.user-results-item-link-profile {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.user-results-loadMore {
+  padding: 0.05rem 2rem;
+}

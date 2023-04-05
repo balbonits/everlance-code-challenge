@@ -1,0 +1,16 @@
+@import '../tailwind.css';
+
+.user-profile-left-column {
+    padding-left: 9rem;
+}
+.user-profile-links {
+    padding: 0 9rem;
+}
+.user-profile-links > span {
+    margin-top: 1rem;
+}
+
+.user-profile-headshot {
+    max-width: 8rem;
+    max-height: 8rem;
+}
