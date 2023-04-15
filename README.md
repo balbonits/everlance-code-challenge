@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Everlance Code Challenge (Github API User Search)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
