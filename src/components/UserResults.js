@@ -1,30 +1,31 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { searchUsers } from '../data/api';
 import { GithubIcon } from '../icons';
 
 import './UserResults.css';
 
 const UserResults = ({ users = [], setUsers }) => {
+  const [currentPage, setCurrentPage] = useState(1);
 
-  /**
-   * handleLoadMore - handles "Load More" functionality.
-   * Fetches the next set of users based on current search query and page,
-   * then adds them to the 'users' state.
-   *
-   * @async
-   * @function
-   * @param {string} query - 'users' search query.
-   * @param {number} currentPage - current page number for search results.
-   * @param {function} setUsers - update 'users' state with new 'users'.
-   * @param {function} setCurrentPage - update current page state.
-   */
-  const handleLoadMore = useCallback(async () => {
-    const currentPage = Math.ceil(users.length / 10);
-    const nextPage = currentPage + 1;
-    const result = await searchUsers(users[0].login, nextPage);
+  const handlePageChange = useCallback(async (pageNumber) => {
+    setCurrentPage(pageNumber);
+    const result = await searchUsers(users[0].login, pageNumber);
+    setUsers(result.items);
+  }, [users, setUsers, setCurrentPage]);
 
-    setUsers((prevUsers) => [...prevUsers, ...result.items]);
-  }, [users, setUsers]);
+  const pageSize = 10;
+  const totalUsers = users.length;
+  const totalPages = Math.ceil(totalUsers / pageSize);
+
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
+  const pageNumbers = getPageNumbers();
 
   return (
     <>
@@ -55,13 +56,20 @@ const UserResults = ({ users = [], setUsers }) => {
           </div>
           ))}
         </div>
-        {users.length > 0 && (
-          <button 
-            className='user-results-loadMore absolute bottom-0 right-0 trasnform translate-y-10 border border-gray-300 rounded-md hover:bg-gray-300'
-            onClick={handleLoadMore}
-            style={{ cursor: 'pointer' }}
-          >Load more</button>
-        )}
+        <div className='user-results-pagination flex justify-center'>
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              className={`user-results-pagination-button border border-gray-300 rounded-md px-4 py-2 mx-1 ${
+                number === currentPage ? 'bg-gray-300' : ''
+              }`}
+              onClick={() => handlePageChange(number)}
+              style={{ cursor: 'pointer' }}
+            >
+              {number}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );
